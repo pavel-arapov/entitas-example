@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
 public class PlayerCollisionSystem : IExecuteSystem
 {
     IGroup<GameEntity> entities;
@@ -24,3 +25,4 @@ public class PlayerCollisionSystem : IExecuteSystem
             e.isDetectedCollision = false;
     }
 }
+*/

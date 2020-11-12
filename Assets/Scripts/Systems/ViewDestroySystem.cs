@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Entitas;
 
+/*
 public class ViewDestroySystem : IInitializeSystem, ITearDownSystem
 {
     IGroup<GameEntity> group;
@@ -28,3 +29,4 @@ public class ViewDestroySystem : IInitializeSystem, ITearDownSystem
         GameObject.Destroy(view.gameObject);
     }
 }
+*/

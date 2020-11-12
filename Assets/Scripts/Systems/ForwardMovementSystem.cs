@@ -1,9 +1,36 @@
 ﻿using Entitas;
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.Collections;
+using Unity.Jobs;
+using Unity.Mathematics;
+using Unity.Burst;
 
+/*
 public class ForwardMovementSystem : IExecuteSystem
 {
+    struct EnemyInfo
+    {
+        public float angle;
+        public float speed;
+    }
+
+    [BurstCompile]
+    struct UpdateJob : IJobParallelFor
+    {
+        public float deltaTime;
+        public NativeArray<float2> enemyPositions;
+        public NativeArray<EnemyInfo> enemyInfo;
+
+        public void Execute(int enemyIndex)
+        {
+            var info = enemyInfo[enemyIndex];
+            var angle = math.radians(info.angle);
+            var dir = new float2(math.cos(angle), math.sin(angle));
+            enemyPositions[enemyIndex] += dir * info.speed * deltaTime;
+        }
+    }
+
     IGroup<GameEntity> entities;
 
     public ForwardMovementSystem(Contexts contexts)
@@ -16,10 +43,31 @@ public class ForwardMovementSystem : IExecuteSystem
 
     public void Execute()
     {
+        int enemyCount = entities.count;
+
+        UpdateJob job = new UpdateJob();
+        job.deltaTime = Time.deltaTime;
+        job.enemyPositions = new NativeArray<float2>(enemyCount, Allocator.TempJob, NativeArrayOptions.UninitializedMemory);
+        job.enemyInfo = new NativeArray<EnemyInfo>(enemyCount, Allocator.TempJob, NativeArrayOptions.UninitializedMemory);
+
+        int i = 0;
         foreach (var e in entities) {
-            var angle = e.rotation.angle * Mathf.Deg2Rad;
-            var dir = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
-            e.ReplacePosition(e.position.value + dir * e.forwardMovement.speed * Time.deltaTime);
+            job.enemyInfo[i] = new EnemyInfo{ angle = e.rotation.angle, speed = e.forwardMovement.speed };
+            job.enemyPositions[i] = e.position.value;
+            ++i;
         }
+
+        JobHandle jobHandle = job.Schedule(enemyCount, 1);
+        jobHandle.Complete();
+
+        i = 0;
+        foreach (var e in entities) {
+            e.ReplacePosition(job.enemyPositions[i]);
+            ++i;
+        }
+
+        job.enemyPositions.Dispose();
+        job.enemyInfo.Dispose();
     }
 }
+*/

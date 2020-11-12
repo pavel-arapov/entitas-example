@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Entitas;
 
+/*
 public class DeathSystem : IExecuteSystem
 {
     IGroup<GameEntity> entities;
@@ -25,3 +26,4 @@ public class DeathSystem : IExecuteSystem
             e.Destroy();
     }
 }
+*/

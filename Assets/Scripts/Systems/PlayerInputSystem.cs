@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
 public class PlayerInputSystem : IExecuteSystem
 {
     Contexts contexts;
@@ -62,3 +63,4 @@ public class PlayerInputSystem : IExecuteSystem
         }
     }
 }
+*/

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Entitas;
 
+/*
 public class PrefabInstantiateSystem : ReactiveSystem<GameEntity>
 {
     Contexts contexts;
@@ -35,3 +36,4 @@ public class PrefabInstantiateSystem : ReactiveSystem<GameEntity>
         }
     }
 }
+*/

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Entitas;
 
+/*
 public class TransformApplySystem : ReactiveSystem<GameEntity>
 {
     Contexts contexts;
@@ -42,3 +43,4 @@ public class TransformApplySystem : ReactiveSystem<GameEntity>
         }
     }
 }
+*/

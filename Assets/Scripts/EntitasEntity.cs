@@ -5,5 +5,7 @@ using Entitas;
 
 public class EntitasEntity : MonoBehaviour
 {
+    /*
     public GameEntity entity;
+    */
 }
