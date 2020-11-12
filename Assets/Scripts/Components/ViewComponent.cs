@@ -1,9 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Entitas;
+using Unity.Entities;
 
-public class ViewComponent : IComponent
+[GenerateAuthoringComponent]
+public struct ViewComponent : IComponentData
 {
-    public GameObject gameObject;
+    public Entity entity;
 }

@@ -1,9 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Entitas;
+using Unity.Entities;
 
-public class ForwardMovementComponent : IComponent
+[GenerateAuthoringComponent]
+public struct ForwardMovementComponent : IComponentData
 {
     public float speed;
 }

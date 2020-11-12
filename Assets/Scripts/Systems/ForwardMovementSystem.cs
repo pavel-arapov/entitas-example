@@ -5,10 +5,27 @@ using Unity.Collections;
 using Unity.Jobs;
 using Unity.Mathematics;
 using Unity.Burst;
+using Unity.Transforms;
+using Unity.Entities;
 
-/*
-public class ForwardMovementSystem : IExecuteSystem
+public class ForwardMovementSystem : JobComponentSystem
 {
+    protected override JobHandle OnUpdate(JobHandle inputDeps)
+    {
+        float deltaTime = Time.DeltaTime;
+
+        var job = Entities.ForEach(
+            (ref ForwardMovementComponent forward, ref Translation translation, ref Rotation rotation) => {
+                var dir = math.mul(rotation.Value, new float3(1, 0, 0));
+                translation.Value += dir * forward.speed * deltaTime;
+            }).Schedule(inputDeps);
+
+        return job;
+    }
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /*
     struct EnemyInfo
     {
         public float angle;
@@ -69,5 +86,5 @@ public class ForwardMovementSystem : IExecuteSystem
         job.enemyPositions.Dispose();
         job.enemyInfo.Dispose();
     }
+    */
 }
-*/

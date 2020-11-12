@@ -6,6 +6,7 @@ using Entitas;
 public class GameController : MonoBehaviour
 {
     public GameObject shotPrefab;
+/*
     Systems systems;
 
     void Awake()
@@ -36,4 +37,5 @@ public class GameController : MonoBehaviour
         systems.Execute();
         systems.Cleanup();
     }
+*/
 }
