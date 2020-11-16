@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
 public class ShotCollisionSystem : IExecuteSystem
 {
     IGroup<GameEntity> shotEntities;
@@ -27,3 +28,4 @@ public class ShotCollisionSystem : IExecuteSystem
         }
     }
 }
+*/

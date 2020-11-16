@@ -1,26 +1,34 @@
-﻿using Entitas;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
+using Unity.Transforms;
+using Unity.Collections;
+using Unity.Jobs;
+using Unity.Mathematics;
+using Unity.Entities;
 
-public class PlayerCollisionSystem : IExecuteSystem
+public class ShotCollisionSystem : ComponentSystem
 {
-    IGroup<GameEntity> entities;
-    List<GameEntity> deadEntities = new List<GameEntity>();
+    EndFixedStepSimulationEntityCommandBufferSystem commandBufferSystem;
 
-    public PlayerCollisionSystem(Contexts contexts)
+    protected override void OnCreate()
     {
-        entities = contexts.game.GetGroup(GameMatcher.AllOf(GameMatcher.Player, GameMatcher.Health, GameMatcher.DetectedCollision));
+        base.OnCreate();
+        commandBufferSystem = World.GetOrCreateSystem<EndFixedStepSimulationEntityCommandBufferSystem>();
     }
 
-    public void Execute()
+    protected override void OnUpdate()
     {
-        deadEntities.Clear();
-        foreach (var e in entities) {
-            e.health.value -= 1.0f;
-            deadEntities.Add(e);
-        }
+        var commandBuffer = commandBufferSystem.CreateCommandBuffer();
 
-        foreach (var e in deadEntities)
-            e.isDetectedCollision = false;
+        Entities.ForEach((Entity enemyEntity, ref EnemyComponent enemy, ref Translation enemyTranslation, ref HealthComponent enemyHealth) => {
+                float3 enemyPosition = enemyTranslation.Value;
+                float health = enemyHealth.value;
+                Entities.ForEach((Entity shotEntity, ref ShotComponent shot, ref Translation shotTranslation) => {
+                        if (math.lengthsq(shotTranslation.Value - enemyPosition) < 0.7f) {
+                            commandBuffer.SetComponent<HealthComponent>(enemyEntity, new HealthComponent{ value = health - 1.0f });
+                            commandBuffer.DestroyEntity(shotEntity);
+                        }
+                    });
+            });
     }
 }

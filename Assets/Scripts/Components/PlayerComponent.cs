@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Entitas;
+using Unity.Entities;
 
-public class PlayerComponent : IComponent
+[GenerateAuthoringComponent]
+public struct PlayerComponent : IComponentData
 {
 }
